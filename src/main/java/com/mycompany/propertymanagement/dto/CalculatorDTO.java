@@ -7,7 +7,7 @@ public class CalculatorDTO {
     private Double num1;
     private Double num2;
     private Double num3;
-    @JsonProperty("num411")
+    @JsonProperty("num41")
     private Double num4;
 
     public Double getNum1() {
