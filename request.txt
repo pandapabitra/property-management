@@ -1,0 +1,57 @@
+Save Property Request
+POST: http://localhost:8080/api/v1/properties
+-----------------------
+{
+  "addressDTO": {
+    "city": "Jaipur",
+    "country": "India",
+    "houseNo": "1234A",
+    "landmark": "Hawa Mahal",
+    "lat": "26.9239363",
+    "lng": "75.8245551",
+    "postalCode": "112344",
+    "state": "Rajasthan",
+    "street": "HM Street"
+  },
+  "area": 2000,
+  "categoryId": 2,
+  "construction": "Newly built Duplex house, year 2015",
+  "description": "Very nice house with great view",
+  "image1": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+  "image2": "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+  "image3": "https://images.unsplash.com/photo-1448630360428-65456885c650?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+  "noOfRooms": 5,
+  "price": 123453.24,
+  "title": "Beautiful Duplex",
+  "userId": 1,
+  "video": "NA"
+}
+RESPONSE:
+---------------
+{
+  "id": 5,
+  "title": "Beautiful Duplex",
+  "description": "Very nice house with great view",
+  "price": 123453.24,
+  "construction": "Newly built Duplex house, year 2015",
+  "image1": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+  "image2": "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+  "image3": "https://images.unsplash.com/photo-1448630360428-65456885c650?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+  "video": "NA",
+  "area": 2000,
+  "noOfRooms": 5,
+  "creationDate": "07-08-2022",
+  "userId": 1,
+  "categoryId": 2,
+  "addressDTO": {
+    "houseNo": "1234A",
+    "street": "HM Street",
+    "landmark": "Hawa Mahal",
+    "lat": "26.9239363",
+    "lng": "75.8245551",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "postalCode": "112344",
+    "country": "India"
+  }
+}

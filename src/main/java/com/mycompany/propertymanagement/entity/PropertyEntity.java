@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "PROPERTY_TABLE")
@@ -20,9 +21,25 @@ public class PropertyEntity {
     private String title;
     private String description;
     private Double price;
-    private String address;
+    private String construction;
+    private String image1;
+    private String image2;
+    private String image3;
+    private String video;
+    private Double area;
+    private Integer noOfRooms;
+    private Date creationDate;
+    private Date updationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)//it will not fetch the user data while fetching property
+    @OneToOne
+    @JoinColumn(name = "ADDRESS_ID", nullable = false)
+    private AddressEntity addressEntity;
+
+    @ManyToOne//(fetch = FetchType.LAZY)//it will not fetch the user data while fetching property
     @JoinColumn(name = "USER_ID", nullable = false)
     private UserEntity userEntity;
+
+    @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    private CategoryEntity categoryEntity;
 }

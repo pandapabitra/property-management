@@ -1,21 +1,16 @@
-package com.mycompany.propertymanagement.entity;
+package com.mycompany.propertymanagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "ADDRESS_TABLE")
 @Getter
 @Setter
-@NoArgsConstructor
-public class AddressEntity {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class AddressDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String houseNo;
     private String street;
     private String landmark;

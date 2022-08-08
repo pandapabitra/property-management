@@ -9,10 +9,12 @@ import com.mycompany.propertymanagement.exception.ErrorModel;
 import com.mycompany.propertymanagement.repository.AddressRepository;
 import com.mycompany.propertymanagement.repository.UserRepository;
 import com.mycompany.propertymanagement.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO register(UserDTO userDTO) {
 
-        Optional<UserEntity> optionalUe = userRepository.findByOwnerEmail(userDTO.getOwnerEmail());
+        Optional<UserEntity> optionalUe = userRepository.findByEmail(userDTO.getEmail());
         if(optionalUe.isPresent()) {
             List<ErrorModel> errorModelList = new ArrayList<>();
             ErrorModel errorModel = new ErrorModel();
@@ -40,29 +42,26 @@ public class UserServiceImpl implements UserService {
 
             throw new BusinessException(errorModelList);
         }
-        UserEntity userEntity = userConverter.convertDTOToEntity(userDTO);
+        UserEntity userEntity = new UserEntity();
+        BeanUtils.copyProperties(userDTO, userEntity);//copy values of same field names from DTO to Entity
+
+        userEntity.setCreationDate(new Date());//current date
         userEntity = userRepository.save(userEntity);
 
-        AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setHouseNo(userDTO.getHouseNo());
-        addressEntity.setCity(userDTO.getCity());
-        addressEntity.setPostalCode(userDTO.getPostalCode());
-        addressEntity.setStreet(userDTO.getStreet());
-        addressEntity.setCountry(userDTO.getCountry());
-        addressEntity.setUserEntity(userEntity);
-
-        addressRepository.save(addressEntity);
-        userDTO = userConverter.convertEntityToDTO(userEntity);
-
+        BeanUtils.copyProperties(userEntity, userDTO);
+        userDTO.setPassword(null);
         return userDTO;
     }
 
     @Override
     public UserDTO login(String email, String password) {
         UserDTO userDTO = null;
-        Optional<UserEntity> optionalUserEntity = userRepository.findByOwnerEmailAndPassword(email, password);
+        Optional<UserEntity> optionalUserEntity = userRepository.findByEmailAndPassword(email, password);
         if(optionalUserEntity.isPresent()) {
-            userDTO = userConverter.convertEntityToDTO(optionalUserEntity.get());
+            //userDTO = userConverter.convertEntityToDTO(optionalUserEntity.get());
+            userDTO = new UserDTO();
+            BeanUtils.copyProperties(optionalUserEntity.get(), userDTO);
+            userDTO.setPassword(null);
         } else {
             List<ErrorModel> errorModelList = new ArrayList<>();
             ErrorModel errorModel = new ErrorModel();
