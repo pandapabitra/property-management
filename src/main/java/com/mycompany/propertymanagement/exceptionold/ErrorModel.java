@@ -1,4 +1,4 @@
-package com.mycompany.propertymanagement.exception;
+package com.mycompany.propertymanagement.exceptionold;
 
 import lombok.Getter;
 import lombok.Setter;

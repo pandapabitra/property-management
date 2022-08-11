@@ -13,6 +13,8 @@ public class PropertyDTO {
     private Double price;
     private String address;
     private Long userId;
+    private String ownerName;
+    private String ownerEmail;
 
     /*
     public String getTitle() {

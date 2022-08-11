@@ -1,20 +1,17 @@
 package com.mycompany.propertymanagement.exception;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.List;
-
-@Getter
-@Setter
-@NoArgsConstructor
-//@AllArgsConstructor
 public class BusinessException extends RuntimeException {
 
-    private List<ErrorModel> errors;
+    private String message;
 
-    public BusinessException(List<ErrorModel> errors) {
-        this.errors = errors;
+    public BusinessException(){}
+
+    public BusinessException(String message){
+        this.message = message;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

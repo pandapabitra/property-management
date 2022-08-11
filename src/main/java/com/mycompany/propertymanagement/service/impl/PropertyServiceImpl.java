@@ -3,9 +3,7 @@ package com.mycompany.propertymanagement.service.impl;
 import com.mycompany.propertymanagement.converter.PropertyConverter;
 import com.mycompany.propertymanagement.dto.PropertyDTO;
 import com.mycompany.propertymanagement.entity.PropertyEntity;
-import com.mycompany.propertymanagement.entity.UserEntity;
 import com.mycompany.propertymanagement.exception.BusinessException;
-import com.mycompany.propertymanagement.exception.ErrorModel;
 import com.mycompany.propertymanagement.repository.PropertyRepository;
 import com.mycompany.propertymanagement.repository.UserRepository;
 import com.mycompany.propertymanagement.service.PropertyService;
@@ -36,7 +34,13 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public PropertyDTO saveProperty(PropertyDTO propertyDTO) {
 
-        Optional<UserEntity> optUe = userRepository.findById(propertyDTO.getUserId());
+        PropertyEntity pe = propertyConverter.convertDTOToEntity(propertyDTO);
+        pe = propertyRepository.save(pe);
+
+        propertyDTO = propertyConverter.convertEntityToDTO(pe);
+        return propertyDTO;
+
+        /*Optional<UserEntity> optUe = userRepository.findById(propertyDTO.getUserId());
         if(optUe.isPresent()) {
             PropertyEntity pe = propertyConverter.convertDTOToEntity(propertyDTO);
             pe.setUserEntity(optUe.get());
@@ -52,7 +56,7 @@ public class PropertyServiceImpl implements PropertyService {
 
             throw new BusinessException(errorModelList);
         }
-        return propertyDTO;
+        return propertyDTO;*/
     }
 
     @Override
@@ -102,7 +106,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public PropertyDTO updatePropertyDescription(PropertyDTO propertyDTO, Long propertyId) {
+    public PropertyDTO updatePropertyDescription(PropertyDTO propertyDTO, Long propertyId) throws BusinessException {
 
         Optional<PropertyEntity> optEn = propertyRepository.findById(propertyId);
         PropertyDTO dto = null;
@@ -111,6 +115,8 @@ public class PropertyServiceImpl implements PropertyService {
             pe.setDescription(propertyDTO.getDescription());
             dto = propertyConverter.convertEntityToDTO(pe);
             propertyRepository.save(pe);
+        } else {
+            throw new BusinessException("No Propery Found for update");
         }
         return dto;
     }
